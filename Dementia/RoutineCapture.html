@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routines</title>
+</head>
+<body>
+    <h1>Enter Your Daily Routine</h1>
+    <form id="routineForm">
+        <label for="activity">Activity:</label>
+        <input type="text" id="activity" name="activity" required>
+        <br>
+        <label for="time">Time (HH:MM):</label>
+        <input type="time" id="time" name="time" required>
+        <br>
+        <button type="button" onclick="saveToExcel()">Save</button>
+    </form>
+
+    <script>
+        function saveToExcel() {
+            const activity = document.getElementById('activity').value;
+            const time = document.getElementById('time').value;
+
+            // Create a CSV-like string (you can customize this format)
+            const csvData = `${activity},${time}\n`;
+
+            // Create a Blob (Excel-compatible format)
+            const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+
+            // Save the Blob as a file
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'daily_routines.csv';
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Daily Routines</title>
+</head>
+<body>
+    <h1>Daily Routines</h1>
+    <table id="routineTable">
+        <!-- Display the routines here -->
+    </table>
+
+    <script>
+        // Assume you have the Excel data in a variable called 'excelData'
+        // Parse the data and populate the table
+		const excelData = xlsx.readFile('daily_routines.csv');
+        const table = document.getElementById('routineTable');
+        excelData.forEach(row => {
+            const newRow = table.insertRow();
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            cell1.textContent = row[0]; // Activity
+            cell2.textContent = row[1]; // Time
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Convert Excel to HTML Table using JavaScript</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+</head>
+<body>
+    <div class="container">
+    	<h2 class="text-center mt-4 mb-4">Convert Excel to HTML Table using JavaScript</h2>
+    	<div class="card">
+    		<div class="card-header"><b>Select Excel File</b></div>
+    		<div class="card-body">
+    			
+                <input type="file" id="excel_file" />
+
+    		</div>
+			
+			<button id="get-task" onclick="ExcelRead()">Get Task</button>
+			<div>
+    	</div>
+        <div id="excel_data" class="mt-5"></div>
+    </div>
+</body>
+</html>
+
+<script>
+/*
+function ExcelRead()
+{
+console.log("Inside readd ");
+//var Excel = new ActiveXObject("Excel.Application");
+var Excel = getActiveXObject("Excel.Application");
+    var excelFile = Excel.Open("‪C:\Users\Pihu\Desktop\Dementia\Project\Team_Tasks.xlsx");
+  var excelSheet = excelFile.SheetByTitle("Sheet2");
+
+    var valueA = excelSheet.Cell("A", 3).Value;
+  var valueB = excelSheet.Cell(2, 3).Value;
+  var valueC = excelSheet.CellByName("B3").Value;
+  console.log("valud of b3 is "+valueC);
+  }
+  
+*/
+  
+  var ExcelToJSON = function() {
+    this.parseExcel = function(file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, { type: 'binary' });
+            workbook.SheetNames.forEach(function(sheetName) {
+                // Here is your object
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                console.log(json_object);
+            });
+        };
+        reader.onerror = function(ex) {
+            console.log(ex);
+        };
+        reader.readAsBinaryString(file);
+    };
+};
+
+
+  // Usage example:
+var filePath = 'C:\\Users\\Pihu\\Desktop\\Dementia\\Project\\Team_Tasks.xlsx';
+var file = new File([""], filePath);
+var excelParser = new ExcelToJSON();
+excelParser.parseExcel(file);
+
+  
+</script>
